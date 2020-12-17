@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  redis:
+    image: 'redis:5.0'
+    command: ["redis-server", "--appendonly", "yes"]
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
+    volumes:
+      - ./redis:/data
+  hooks:
+    image: zw-hack-hooks:latest
+    build: ./src/hooks/
+    ports:
+      - "5000:5000"
+    environment:
+      ZW_PHONE_NUMBER: "${ZW_PHONE_NUMBER}"
+      ZW_SESSION_KEY: "${ZW_SESSION_KEY}"
+      NGROK_AUTH_TOKEN: "${NGROK_AUTH_TOKEN}"
+      REDIS_HOST: redis
+      WEB_PORT: 5000
+  sockets:
+    image: zw-hack-sockets:latest
+    build: ./src/sockets/
+    ports:
+      - "6789:6789"
+    environment:
+      REDIS_HOST: redis
+      WEBSOCKETS_PORT: 6789
+  #controller:
+  #  image: zw-hack-controller:latest
+  #  build: ./src/controller/
+  #  environment:
+  #    REDIS_HOST: redis

@@ -1,0 +1,4 @@
+asyncio==3.4.3
+asyncio-redis==0.16.0
+redis==3.5.3
+websockets==8.1

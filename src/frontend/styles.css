@@ -1,0 +1,66 @@
+#container {
+  position: relative;
+}
+
+#container canvas, #overlay {
+  position: absolute;
+}
+
+.announcement {
+  animation-duration: 1s;
+  animation-name: growandfade;
+  animation-iteration-count: 1;
+  clear: both;
+  -webkit-animation-fill-mode: forwards;
+}
+
+.announcement-long {
+  animation-duration: 5s;
+  animation-name: growandfadelong;
+  animation-iteration-count: 1;
+  clear: both;
+  -webkit-animation-fill-mode: forwards;
+}
+
+.cheer {
+  animation-duration: 2s;
+  animation-name: growandfade;
+  animation-iteration-count: 1;
+  clear: both;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes growandfade {
+  from {
+    opacity: 1.0;
+    font-size: 20px;
+  }
+
+  50% {
+    opacity: 0.3;
+    font-size: 100px;
+  }
+
+  to {
+    opacity: 0;
+    font-size: 100px;
+  }
+}
+
+@keyframes growandfadelong {
+  from {
+    opacity: 1.0;
+    font-size: 20px;
+  }
+
+  90% {
+    opacity: 1.0;
+    font-size: 100px;
+  }
+
+  to {
+    opacity: 0;
+    font-size: 100px;
+  }
+}
+
