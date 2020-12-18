@@ -2,12 +2,13 @@ import json
 import random
 
 class Game():
-    def __init__(self, redis_client, goal=100, jitter=2, max_velocity=7, timer=5):
+    def __init__(self, redis_client, goal=100, jitter=2, air_resistance=2, max_velocity=7, timer=5):
         self.client = redis_client
         self.goal = goal
         self.jitter = jitter
         self.timer = timer
         self.max_velocity = max_velocity
+        self.air_resistance = air_resistance
 
         if self.client.exists('state'):
             self.state = self.client.get('state').decode('UTF-8')
@@ -68,7 +69,9 @@ class Game():
             for k in self.snails:
                 self.move_snail(k)
                 if self.velocity[k] > 1:
-                    self.change_velocity(k, amount=-1)
+                    r = self.air_resistance if self.velocity[k] - self.air_resistance >= 1 else self.velocity[k] - 1
+                    r *= -1
+                    self.change_velocity(k, amount=r)
                 if self.position[k] >= self.goal:
                     self.winners.append(k)
             self.client.publish('messages', json.dumps({'type': 'move', 'body': ','.join([str(self.position[k]) for k in self.snails])}))

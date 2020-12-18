@@ -1,5 +1,5 @@
 set -euo pipefail
-source ../env.sh
+source env.sh
 
 ids=$(curl -s -request POST 'https://api.zipwhip.com/webhook/list' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
