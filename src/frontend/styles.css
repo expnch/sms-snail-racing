@@ -1,36 +1,49 @@
-#container {
-  position: relative;
-}
-
 #container canvas, #overlay {
   position: absolute;
 }
 
 .announcement {
+  animation-name: announcement;
   animation-duration: 1s;
-  animation-name: growandfade;
   animation-iteration-count: 1;
-  clear: both;
   -webkit-animation-fill-mode: forwards;
+  position: absolute;
+  font-size: 80px;
+  background: #0fffcd;
+  width: 600px;
+  height: 200px;
+  text-align: center;
+  margin-top: 180px;
+  margin-left: 300px;
+  padding: 10px;
 }
 
 .announcement-long {
-  animation-duration: 5s;
-  animation-name: growandfadelong;
+  animation-name: announcement-long;
+  animation-duration: 10s;
   animation-iteration-count: 1;
-  clear: both;
   -webkit-animation-fill-mode: forwards;
+  position: absolute;
+  font-size: 80px;
+  background: #0fffcd;
+  width: 600px;
+  height: 200px;
+  text-align: center;
+  margin-top: 180px;
+  margin-left: 300px;
+  padding: 10px;
 }
 
 .cheer {
+  animation-name: cheer;
   animation-duration: 2s;
-  animation-name: growandfade;
   animation-iteration-count: 1;
   clear: both;
   -webkit-animation-fill-mode: forwards;
+  position: absolute;
 }
 
-@keyframes growandfade {
+@keyframes cheer {
   from {
     opacity: 1.0;
     font-size: 20px;
@@ -47,20 +60,30 @@
   }
 }
 
-@keyframes growandfadelong {
+@keyframes announcement {
   from {
     opacity: 1.0;
-    font-size: 20px;
   }
 
-  90% {
+  75% {
     opacity: 1.0;
-    font-size: 100px;
   }
 
   to {
     opacity: 0;
-    font-size: 100px;
   }
 }
 
+@keyframes announcement-long {
+  from {
+    opacity: 1.0;
+  }
+
+  95% {
+    opacity: 1.0;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

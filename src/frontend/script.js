@@ -1,9 +1,9 @@
 // Overlays
 function drawCheer(text) {
-    let cheer = document.createElement('div');
+    let cheer = document.createElement('span');
     cheer.textContent = text;
-    cheer.style.marginLeft = (Math.random() * canvas_w) + "px";
-    cheer.style.marginTop = (Math.random() * canvas_h) + "px";
+    cheer.style.marginLeft = (Math.random() * canvas_w - cheer.style.width) + "px";
+    cheer.style.marginTop = (Math.random() * canvas_h - cheer.style.height) + "px";
     cheer.classList.add('cheer');
     document.getElementById('overlay').prepend(cheer);
 }
@@ -11,10 +11,6 @@ function drawCheer(text) {
 function drawAnnouncement(text, type='short') {
     let announce = document.createElement('div');
     announce.textContent = text;
-    announce.style.width = "100%";
-    announce.style.textAlign = 'center';
-    announce.style.marginTop = '100px';
-    announce.style.marginLeft = '100px';
     if (type == 'long') {
       announce.classList.add('announcement-long');
     } else { 
@@ -23,14 +19,13 @@ function drawAnnouncement(text, type='short') {
     document.getElementById('overlay').prepend(announce);
 }
 
-// Game canvas
-var canvas_w = 1200;
+// Canvas
+var canvas_w = 1400;
 var canvas_h = 600;
 
 var starting_line_x = 50;
 var finish_line_x = 1100;
-
-var goal_units = 60;
+var goal_units = 100;
 
 var Snail = function(x, y, color) {
   this.x = x;
@@ -40,12 +35,6 @@ var Snail = function(x, y, color) {
 
 var snail_w = 150;
 var snail_h = 120;
-
-var snail_0 = new Snail(starting_line_x, 35, 'rgba(255, 0, 255, 0.5)');
-var snail_1 = new Snail(starting_line_x, 240, 'rgba(0, 153, 255, 0.5)');
-var snail_2 = new Snail(starting_line_x, 445, 'rgba(255, 165, 0, 0.5)');
-var snails = [snail_0, snail_1, snail_2];
-
 var ctx;
 
 var snail_img = new Image();
@@ -53,9 +42,16 @@ var checker = new Image();
 snail_img.src = 'snail.gif';
 checker.src = 'https://freepngimg.com/thumb/finish_line/26669-1-finish-line-hd.png';
 
+// Game state
+var snail_0 = new Snail(starting_line_x, 35, 'rgba(255, 0, 255, 0.5)');
+var snail_1 = new Snail(starting_line_x, 240, 'rgba(0, 153, 255, 0.5)');
+var snail_2 = new Snail(starting_line_x, 445, 'rgba(255, 165, 0, 0.5)');
+var snails = [snail_0, snail_1, snail_2];
+
+var state = "setup";
+
 window.onload = function() {
   ctx = document.getElementById('game').getContext('2d');
-  
   window.requestAnimationFrame(drawBackground);
   window.requestAnimationFrame(drawSnailTrails);
   window.requestAnimationFrame(drawSnails);
@@ -86,7 +82,7 @@ function drawBackground() {
   ctx.restore();
   ctx.save();
   ctx.rotate(Math.PI/2);
-  ctx.drawImage(checker, 0, -1350);
+  ctx.drawImage(checker, 0, -1450);
   ctx.restore();
 }
 
@@ -100,11 +96,11 @@ function drawSnails() {
 
 function drawSnailTrails() {
   for (let snail of snails) {
-    if (snail.x > 200) {
+    if (snail.x > 170) {
       ctx.save();
       ctx.strokeStyle = snail.color;
       ctx.beginPath();
-      ctx.moveTo(210, snail.y + (0.5 * snail_h));
+      ctx.moveTo(175, snail.y + (0.5 * snail_h));
       ctx.lineTo(snail.x + (0.5*snail_w), snail.y + (0.5 * snail_h));
       ctx.stroke();
       ctx.restore();
@@ -123,9 +119,11 @@ socket.onmessage = function(event) {
   let event_json = JSON.parse(event.data);
   if (event_json.type == "cheer") {
     console.log('[event] Got a cheer', event_json.body);
-    drawCheer(event_json.body); 
+    if (state == "race") {
+      drawCheer(event_json.body); 
+    }
   } else if (event_json.type == "announcement") {
-    console.log('[event] Got an announcment', event_json.body);
+    console.log('[event] Got an announcement', event_json.body);
     drawAnnouncement(event_json.body); 
   } else if (event_json.type == "announcement-long") {
     console.log('[event] Got an announcment', event_json.body);
@@ -136,10 +134,15 @@ socket.onmessage = function(event) {
     snail_1.x = array[1]/goal_units * (finish_line_x - starting_line_x) + starting_line_x;
     snail_2.x = array[2]/goal_units * (finish_line_x - starting_line_x) + starting_line_x;
     console.log('[event] Position update: '+snail_0.x);
-    ctx.clearRect(0,0,canvas_w,canvas_h);
+
+    ctx.clearRect(0,0,2000,2000);
+
     window.requestAnimationFrame(drawBackground);
     window.requestAnimationFrame(drawSnailTrails);
     window.requestAnimationFrame(drawSnails);
+
+  } else if (event_json.type == "state") {
+    state = event_json.body;
   }
 }
 
@@ -155,4 +158,3 @@ socket.onclose = function(event) {
 socket.onerror = function(error) {
   console.log(`[error] ${error.message}`);
 };
-

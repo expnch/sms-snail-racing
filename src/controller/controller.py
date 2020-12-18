@@ -23,27 +23,34 @@ def message_handler(m):
                 cheer(snail_id, text)
             break
 
+def command_handler(m):
+    text = m['data'].decode('UTF-8').upper()
+    if text == "NEXT":
+        g.change_state()
+
 def cheer(snail_id, text):
     g.change_velocity(snail_id, amount=1)
 
 # Connect to Redis
 r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
 p = r.pubsub(ignore_subscribe_messages=True)
-p.subscribe(**{'messages': message_handler})
+p.subscribe(**{'messages': message_handler, 'commands': command_handler})
 
 # Game state
-g = Game(r, goal=60, jitter=2, timers={'setup': 10, 'ready': 5, 'race': -1, 'victory': 10})
+g = Game(r, goal=100, jitter=2)
 re_patterns = [(k, re.compile('.*' + g.names[k].upper())) for k in g.names]
 
 # Main loop
 thread = p.run_in_thread(sleep_time=0.001)
 while True:
-    if g.state in ['setup', 'ready']:
-        logging.info('[{}] Status change in {}s...'.format(g.state, g.countdown))
+    if g.state in ['setup']:
+        logging.info('[setup] Waiting for status command...')
+    elif g.state in ['ready']:
+        logging.info('[ready] Starting race in {}s'.format(g.countdown))
     elif g.state == 'race':
-        logging.info('[race] {} to {} to {} (of {})'.format(g.position['0'], g.position['1'], g.position['2'], g.goal))
+        logging.info('[race] {} ({}) to {} ({}) to {} ({})'.format(g.position['0'], g.velocity['0'], g.position['1'], g.velocity['1'], g.position['2'], g.velocity['2']))
     elif g.state == 'victory':
-        logging.info('[victory] {} won; reset in {}s'.format(g.winners, g.countdown))
+        logging.info('[victory] {} won; waiting for status command...'.format(g.winners, g.countdown))
     g.process()
     time.sleep(1)
 

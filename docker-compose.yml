@@ -29,8 +29,8 @@ services:
     environment:
       REDIS_HOST: redis
       WEBSOCKETS_PORT: 6789
-  #controller:
-  #  image: zw-hack-controller:latest
-  #  build: ./src/controller/
-  #  environment:
-  #    REDIS_HOST: redis
+  controller:
+    image: zw-hack-controller:latest
+    build: ./src/controller/
+    environment:
+      REDIS_HOST: redis

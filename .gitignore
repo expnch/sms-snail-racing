@@ -1,6 +1,9 @@
 # Secret values
 env.sh
 
+# Redis
+redis/appendonly.aof
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
