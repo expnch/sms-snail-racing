@@ -8,11 +8,13 @@ Entry for Zipwhip Hackathon 2020.
 <img src="screenshots/race.png" height="350px" alt="Snail race in progress">
 <img src="screenshots/victory.png" height="350px" alt="Zippy and Wanda tie for victory">
 
-# Requirements
+# Run
+## Requirements
+* [Docker Compose](https://docs.docker.com/compose/install/)
 * Zipwhip API phone number and session key (used for inbound SMS)
 * Ngrok.io authentication token (used for proxying webhook to local machine)
 
-# Run
+## Setup and operation 
 Create `env.sh`:
 ```
 export ZW_PHONE_NUMBER="<your ZW phone number>"
