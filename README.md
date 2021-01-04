@@ -1,14 +1,12 @@
 
 # SMS-Powered  Snail Racing
-Watch and cheer (by text) as 3 brave snails fight for dominance of the racetrack.
-
-Cheering for a snail encourages it move faster, but eventually they get distracted and slow down (so keep cheering!).
-
-![Race countdown](/screenshots/setup.png)
-![Race in progress](/screenshots/progress.png)
-![Race victory](/screenshots/victory.png)
+Watch and cheer (by text) as 3 brave snails fight for dominance of the racetrack.  Cheering for a snail encourages it move faster, but eventually they get distracted and slow down (so keep cheering!).
 
 Entry for Zipwhip Hackathon 2020.
+
+<img src="https://github.com/favicon.ico" height="350px" alt="Countdown to the race">
+<img src="https://github.com/favicon.ico" height="350px" alt="Snail race in progress">
+<img src="https://github.com/favicon.ico" height="350px" alt="Zippy and Wanda tie for victory">
 
 # Requirements
 * Zipwhip API phone number and session key (used for inbound SMS)
