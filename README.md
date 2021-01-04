@@ -41,6 +41,7 @@ Docker Compose is used to run 4 components:
 The [user interface](src/frontend/) is a Javascript app that connects to the (local) Websockets server and redraws an HTML canvas with updates to the game state.  Cheers and announcments are 'rendered' with CSS animations.
 
 ## To-do
+* Send phone number to front-end dynamically
 * Delete webhook on registration on shutdown
 * Customizable snail names
 * Better admin interface than publishing to Redis stream
