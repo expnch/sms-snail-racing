@@ -1,5 +1,8 @@
 
 # SMS-Powered  Snail Racing
+[![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+
 Watch and cheer (by text) as 3 brave snails fight for dominance of the racetrack.  Cheering for a snail encourages it to move faster, but eventually they get distracted and slow down (so keep cheering!).
 
 Entry for Zipwhip Hackathon 2020.
