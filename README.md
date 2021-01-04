@@ -4,9 +4,9 @@ Watch and cheer (by text) as 3 brave snails fight for dominance of the racetrack
 
 Entry for Zipwhip Hackathon 2020.
 
-<img src="https://github.com/favicon.ico" height="350px" alt="Countdown to the race">
-<img src="https://github.com/favicon.ico" height="350px" alt="Snail race in progress">
-<img src="https://github.com/favicon.ico" height="350px" alt="Zippy and Wanda tie for victory">
+<img src="screenshots/setup.png" height="350px" alt="Countdown to the race">
+<img src="screenshots/race.png" height="350px" alt="Snail race in progress">
+<img src="screenshots/victory.png" height="350px" alt="Zippy and Wanda tie for victory">
 
 # Requirements
 * Zipwhip API phone number and session key (used for inbound SMS)
