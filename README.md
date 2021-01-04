@@ -1,6 +1,6 @@
 
 # SMS-Powered  Snail Racing
-Watch and cheer (by text) as 3 brave snails fight for dominance of the racetrack.  Cheering for a snail encourages it move faster, but eventually they get distracted and slow down (so keep cheering!).
+Watch and cheer (by text) as 3 brave snails fight for dominance of the racetrack.  Cheering for a snail encourages it to move faster, but eventually they get distracted and slow down (so keep cheering!).
 
 Entry for Zipwhip Hackathon 2020.
 
