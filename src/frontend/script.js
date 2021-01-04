@@ -40,7 +40,7 @@ var ctx;
 var snail_img = new Image();
 var checker = new Image();
 snail_img.src = 'snail.gif';
-checker.src = 'https://freepngimg.com/thumb/finish_line/26669-1-finish-line-hd.png';
+checker.src = 'checker.png';
 
 // Game state
 var snail_0 = new Snail(starting_line_x, 35, 'rgba(255, 0, 255, 0.5)');
