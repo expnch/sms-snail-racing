@@ -11,13 +11,13 @@ Entry for Zipwhip Hackathon 2020.
 <img src="screenshots/race.png" height="350px" alt="Snail race in progress">
 <img src="screenshots/victory.png" height="350px" alt="Zippy and Wanda tie for victory">
 
-# Run
-## Requirements
+## Run
+### Requirements
 * [Docker Compose](https://docs.docker.com/compose/install/)
 * Zipwhip API phone number and session key (used for inbound SMS)
 * Ngrok.io authentication token (used for proxying webhook to local machine)
 
-## Setup and operation 
+### Setup and operation 
 Create `env.sh`:
 ```
 export ZW_PHONE_NUMBER="<your ZW phone number>"
@@ -36,7 +36,7 @@ r = Redis()
 r.publish('commands', 'next')
 ```
 
-# Design
+## Design
 Docker Compose is used to run 4 components:
 1. Redis: used for pub/sub channels and storing game state.
 2. [Controller](src/controller/): manages game state and listens for events on Redis pub/sub.
